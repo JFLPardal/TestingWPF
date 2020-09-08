@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestingWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Window.Resources>
-        <CollectionViewSource Source="{Binding Source={x:Static Application.Current}, Path=SkillsList}" 
-            x:Key="SkillsList"/>
-        
-        
+        <CollectionViewSource 
+            Source="{Binding Source={x:Static Application.Current}, Path=SkillsList}" 
+            x:Key="ListOfSkills"/>
+
         <Style x:Key="BtnSkill" TargetType="Button">
             <Setter Property="Background" Value="DarkTurquoise"/>
             <Setter Property="Foreground" Value="LightYellow"/>
@@ -33,46 +34,28 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <!--<DockPanel Margin="20,0,20,0" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" LastChildFill="False">
-            <Button Content="{Binding Source={StaticResource SkillsList}, Path=Name}" Style="{StaticResource BtnSkill}" Name="Oink1" Click="Button_Click"> </Button>
-            <Button Content="{Binding Source={StaticResource SkillsList}, Path=Name}" Style="{StaticResource BtnSkill}" Name="Oink2" Click="Button_Click"> </Button>
-            <Button Content="{Binding Source={StaticResource SkillsList}, Path=Name}" Style="{StaticResource BtnSkill}" Name="Oink3" Click="Button_Click"> </Button>
-            <Button Content="{Binding Source={StaticResource SkillsList}, Path=Name}" Style="{StaticResource BtnSkill}" Name="Oink4" Click="Button_Click"> </Button>
-        </DockPanel>-->
-
         <ListBox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="300"
-                   ItemsSource="{Binding Source={StaticResource SkillsList}}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                 ItemsSource="{Binding Source={StaticResource ListOfSkills}}">
+<!--
+            <ItemsControl ItemsSource="{Binding Source={StaticResource ListOfSkills}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Path=Name}" Margin="6" Click="SkillClicked"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>-->
         </ListBox>
+        
+        <DockPanel Margin="70,50,70,30" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+           <ContentControl Grid.Row="0" Grid.Column="1" 
+                           Content="{Binding Source={StaticResource ListOfSkills}}"
+                           ContentTemplate="{StaticResource SkillInfoDisplay}"/>
 
-        <DockPanel Margin="70,0,70,30" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-            <Grid x:Name="SkillInfo">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Grid.Column="0">NAME</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="0">DMG</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="0">ACC</TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="0">CRIT</TextBlock>
-
-                <!--when one of the skill buttons is pressed these textblocks should be updated-->
-                <TextBlock x:Name="testing" Grid.Row="0" Grid.Column="1">Swipe</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1">10</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1">87%</TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="1">5%</TextBlock>
-            </Grid>
             <!-- TODOS
                 * make the textBlock above a single unit so that I only need to reference that unit in the code behind
                 * create a 'skill' definition on the MainWindow.xaml.cs constructor that will have the 4 fields above and test to see 
@@ -80,7 +63,6 @@
                 * pull the skill definition out of MainWindow.xaml.cs into its own class
                 * instead of name referencing the textBlock with the skill details, find a way to pass it as an object to the click function
             -->
-            
         </DockPanel>
     </Grid>
 </Window>

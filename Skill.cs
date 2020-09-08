@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,9 +22,14 @@ namespace TestingWPF
             m_critChance = critChance;
         }
 
-        public string Name
+        public override string ToString()
         {
-            get { return m_name; }
+            return Name;
         }
+
+        public string Name { get { return m_name; } }
+        public int Damage { get { return m_damage; } }
+        public int Accuracy { get { return m_accuracy; } }
+        public int Crit { get { return m_critChance; } }
     }
 }

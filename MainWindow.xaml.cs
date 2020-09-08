@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,16 +26,13 @@ namespace TestingWPF
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SkillClicked(object sender, RoutedEventArgs e)
         {
             Button b = e.Source as Button;
-            b.Background = Brushes.Aquamarine;
-            b.Foreground = Brushes.BurlyWood;
-            var textToChange = (TextBlock)this.FindName("testing");
-            textToChange.Text = "safas";
-            //Oink1.VerticalAlignment = VerticalAlignment.Top;
         }
+
     }
 }
