@@ -5,11 +5,12 @@
              Startup="InitApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate x:Key="SkillInfoDisplay">
+
+        <DataTemplate DataType="{x:Type local:Skill}" x:Key="SkillInfoDisplay">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -31,5 +32,14 @@
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Crit}">%</TextBlock>
             </Grid>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:Skill}" x:Key="ChooseSkillDisplay">
+            <StackPanel Orientation="Vertical">
+                <Border BorderThickness="2" BorderBrush="Gray" HorizontalAlignment="Center">
+                    <TextBlock Width="25" Height="25" Text="{Binding Path=Abbreviation}" TextAlignment="Center"/>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>

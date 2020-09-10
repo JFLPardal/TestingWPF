@@ -22,6 +22,10 @@
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="ListBox">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
     </Window.Resources>
 
     <Grid x:Name="UILayout">
@@ -34,35 +38,21 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Width="300"
-                 ItemsSource="{Binding Source={StaticResource ListOfSkills}}">
-<!--
-            <ItemsControl ItemsSource="{Binding Source={StaticResource ListOfSkills}}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Path=Name}" Margin="6" Click="SkillClicked"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
+        <ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="300"
+                 ItemTemplate="{Binding Source={StaticResource ChooseSkillDisplay}}"
+                 ItemsSource ="{Binding Source={StaticResource ListOfSkills}}"
+                 Style="{Binding Source={StaticResource ButtonStyle}}" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
         
-        <DockPanel Margin="70,50,70,30" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-           <ContentControl Grid.Row="0" Grid.Column="1" 
+        <DockPanel Margin="70,50,70,50" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom">
+            <ContentControl Grid.Row="0" Grid.Column="1" 
                            Content="{Binding Source={StaticResource ListOfSkills}}"
                            ContentTemplate="{StaticResource SkillInfoDisplay}"/>
-
-            <!-- TODOS
-                * make the textBlock above a single unit so that I only need to reference that unit in the code behind
-                * create a 'skill' definition on the MainWindow.xaml.cs constructor that will have the 4 fields above and test to see 
-                if they can be copied on click
-                * pull the skill definition out of MainWindow.xaml.cs into its own class
-                * instead of name referencing the textBlock with the skill details, find a way to pass it as an object to the click function
-            -->
         </DockPanel>
     </Grid>
 </Window>
